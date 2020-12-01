@@ -100,6 +100,33 @@ public class MediaController {
 		
 	}
 	
+	@GetMapping("/modify")
+	public String modify(@ModelAttribute("modifyMediaBean") MediaBean modifyMediaBean,
+						 @RequestParam("media_info_idx") int media_info_idx, 
+						 @RequestParam("media_idx") int media_idx, 
+						 @RequestParam("page") int page, Model model) {
+		
+		mediaService.getModifyMediaInfo(modifyMediaBean, media_idx);
+		model.addAttribute("media_info_idx", media_info_idx);
+		model.addAttribute("page", page);
+		
+		return "media/modify";
+		
+	}
+	
+	@PostMapping("/modify_pro")
+	public String modify_success(@Valid @ModelAttribute("modifyMediaBean") MediaBean modifyMediaBean, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			
+			return "media/modify";
+			
+		}
+		
+		return "media/modify_success";
+		
+	}
+	
 	@GetMapping("/delete")
 	public String delete(@RequestParam("media_info_idx") int media_info_idx,
 						 @RequestParam("media_idx") int media_idx, Model model) {

@@ -129,4 +129,19 @@ public class MediaService {
 		mediaDao.deleteMediaInfo(media_idx);
 	}
 	
+	public void getModifyMediaInfo(MediaBean modifyMediaBean, int media_idx) {
+		
+		MediaBean tempModifyMediaBean = mediaDao.getMediaInfo(media_idx);
+		
+		modifyMediaBean.setMedia_idx(tempModifyMediaBean.getMedia_idx());
+		modifyMediaBean.setMedia_subject(tempModifyMediaBean.getMedia_subject());
+		modifyMediaBean.setMedia_date(tempModifyMediaBean.getMedia_date());
+		modifyMediaBean.setMedia_poster(tempModifyMediaBean.getMedia_poster());
+		modifyMediaBean.setMedia_file(tempModifyMediaBean.getMedia_file());
+		modifyMediaBean.setFilesize(tempModifyMediaBean.getFilesize());
+		modifyMediaBean.setMedia_writer_name(tempModifyMediaBean.getMedia_writer_name());
+		modifyMediaBean.setMedia_writer_idx(tempModifyMediaBean.getMedia_writer_idx());
+		
+	}
+	
 }
