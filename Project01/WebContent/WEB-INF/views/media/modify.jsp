@@ -24,6 +24,9 @@
 				<div class="card shadow">
 					<div class="card-body">
 						<form:form action = "${root }media/modify_pro" method = "POST" autocomplete = "off" modelAttribute = "modifyMediaBean" enctype = "multipart/form-data">
+							<input type = "hidden" name = "page" value = "${requestScope.page }" />
+							<input type = "hidden" name = "media_info_idx" value = "${requestScope.media_info_idx }" />
+							<form:hidden path = "media_board_idx" />
 							<div class="form-group">
 								<form:label path = "media_writer_name">작성자</form:label>
 								<form:input path = "media_writer_name" class = "form-control" readonly = "true" />
@@ -41,12 +44,13 @@
 								<c:if test = "${requestScope.modifyMediaBean.media_poster != null }">
 									<c:choose>
 										<c:when test = "${requestScope.media_info_idx == 1 }">
-											<label for = "media_file">음원 포스터</label>
+											<label for = "media_poster">음원 포스터</label>
 										</c:when>
 										<c:otherwise>
-											<label for = "media_file">영상 포스터</label>
+											<label for = "media_poster">영상 포스터</label>
 										</c:otherwise>
 									</c:choose>
+									<form:hidden path = "media_poster" />
 									<img src="${root }media/image/${requestScope.modifyMediaBean.media_poster }" width="100%" />
 								</c:if>
 								<form:input type = "file" path = "media_posterMF" accept = "image/*" />
@@ -55,6 +59,7 @@
 								<c:choose>
 									<c:when test = "${requestScope.media_info_idx == 1 }">
 										<label for="media_file">음원</label>
+										<form:hidden path = "media_file" />
 										<audio autoplay controls controlsList = "nodownload">
 											<source src = "${root }media/media/${requestScope.modifyMediaBean.media_file }" type = "audio/mp3" />
 										</audio>
@@ -62,6 +67,7 @@
 									</c:when>
 									<c:otherwise>
 										<label for = "media_file">영상</label>
+										<form:hidden path = "media_file" />
 										<video controlsList = "nodownload" src = "${root }media/media/${requestScope.modifyMediaBean.media_file }" controls width = "100%"></video>
 										<form:input type = "file" path = "media_fileMF" accept = "video/*" />
 									</c:otherwise>
@@ -70,7 +76,7 @@
 							<div class="form-group">
 								<div class="text-right">
 									<button type="submit" class="btn btn-primary">수정완료</button>
-									<a href="${root }media/modify_pro?media_info_idx=${requestScope.media_info_idx }&media_idx=${requestScope.modifyMediaBean.media_idx }&page=${requestScope.page }" class="btn btn-info">취소</a>
+									<a href="${root }media/read?media_info_idx=${requestScope.media_info_idx }&media_idx=${requestScope.modifyMediaBean.media_idx }&page=${requestScope.page }" class="btn btn-info">취소</a>
 								</div>
 							</div>
 						</form:form>

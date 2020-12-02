@@ -44,4 +44,9 @@ public interface MediaMapper {
 	@Select("SELECT COUNT(*) FROM MEDIA_TABLE WHERE MEDIA_BOARD_IDX = #{media_info_idx}")
 	int getMediaCnt(int media_info_idx);
 	
+	@Update("UPDATE MEDIA_TABLE " + 
+			"SET MEDIA_SUBJECT = #{media_subject}, MEDIA_POSTER = #{media_poster, jdbcType = VARCHAR}, MEDIA_FILE = #{media_file, jdbcType = VARCHAR} " + 
+			"WHERE MEDIA_IDX = #{media_idx}")
+	void modifyMediaInfo(MediaBean modifyMediaBean);
+	
 }

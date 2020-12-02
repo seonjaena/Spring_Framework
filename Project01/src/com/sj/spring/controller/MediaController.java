@@ -83,18 +83,18 @@ public class MediaController {
 	}
 	
 	@GetMapping("/read")
-	public String read(@ModelAttribute("readMediaBean") MediaBean readMediaBean, 
-					   @RequestParam("media_info_idx") int media_info_idx,
+	public String read(@RequestParam("media_info_idx") int media_info_idx,
 					   @RequestParam("media_idx") int media_idx, 
 					   @RequestParam("page") int page,
 					   HttpServletRequest request) {
 		
-		mediaService.getMediaInfo(readMediaBean, media_idx);
-		
+		MediaBean readMediaBean = mediaService.getMediaInfo(media_idx);
+
 		request.setAttribute("media_info_idx", media_info_idx);
 		request.setAttribute("media_idx", media_idx);
 		request.setAttribute("page", page);
 		request.setAttribute("loginUserBean", loginUserBean);
+		request.setAttribute("readMediaBean", readMediaBean);
 		
 		return "media/read";
 		
@@ -104,24 +104,37 @@ public class MediaController {
 	public String modify(@ModelAttribute("modifyMediaBean") MediaBean modifyMediaBean,
 						 @RequestParam("media_info_idx") int media_info_idx, 
 						 @RequestParam("media_idx") int media_idx, 
-						 @RequestParam("page") int page, Model model) {
-		
+						 @RequestParam("page") int page, 
+						 Model model, HttpSession session) {
+
 		mediaService.getModifyMediaInfo(modifyMediaBean, media_idx);
 		model.addAttribute("media_info_idx", media_info_idx);
 		model.addAttribute("page", page);
+		session.setAttribute("media_idx", media_idx);
 		
 		return "media/modify";
 		
 	}
 	
 	@PostMapping("/modify_pro")
-	public String modify_success(@Valid @ModelAttribute("modifyMediaBean") MediaBean modifyMediaBean, BindingResult result) {
+	public String modify_success(@Valid @ModelAttribute("modifyMediaBean") MediaBean modifyMediaBean, BindingResult result, 
+								 HttpServletRequest request, HttpSession session, Model model) {
 		
 		if(result.hasErrors()) {
 			
 			return "media/modify";
 			
 		}
+		
+		int page = Integer.parseInt(request.getParameter("page"));
+		int media_info_idx = Integer.parseInt(request.getParameter("media_info_idx"));
+		int media_idx = (int) session.getAttribute("media_idx");
+		session.removeAttribute("media_idx");
+		
+		modifyMediaBean.setMedia_idx(media_idx);
+		modifyMediaBean.setMedia_board_idx(media_info_idx);
+		model.addAttribute("page", page);
+		mediaService.modifyMediaInfo(modifyMediaBean);
 		
 		return "media/modify_success";
 		
@@ -137,6 +150,11 @@ public class MediaController {
 		
 		return "media/delete";
 		
+	}
+	
+	@GetMapping("/not_writer")
+	public String not_writer() {
+		return "media/not_writer";
 	}
 	
 	@InitBinder

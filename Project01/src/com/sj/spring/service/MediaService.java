@@ -104,19 +104,8 @@ public class MediaService {
 		
 	}
 	
-	public void getMediaInfo(MediaBean readMediaBean, int media_idx) {
-		
-		MediaBean tempReadMediaBean = mediaDao.getMediaInfo(media_idx);
-		
-		readMediaBean.setMedia_idx(tempReadMediaBean.getMedia_idx());
-		readMediaBean.setMedia_subject(tempReadMediaBean.getMedia_subject());
-		readMediaBean.setMedia_date(tempReadMediaBean.getMedia_date());
-		readMediaBean.setMedia_poster(tempReadMediaBean.getMedia_poster());
-		readMediaBean.setMedia_file(tempReadMediaBean.getMedia_file());
-		readMediaBean.setFilesize(tempReadMediaBean.getFilesize());
-		readMediaBean.setMedia_writer_name(tempReadMediaBean.getMedia_writer_name());
-		readMediaBean.setMedia_writer_idx(tempReadMediaBean.getMedia_writer_idx());
-		
+	public MediaBean getMediaInfo(int media_idx) {
+		return mediaDao.getMediaInfo(media_idx);	
 	}
 	
 	public PageBean getMediaCnt(int page, int media_info_idx) {
@@ -141,6 +130,29 @@ public class MediaService {
 		modifyMediaBean.setFilesize(tempModifyMediaBean.getFilesize());
 		modifyMediaBean.setMedia_writer_name(tempModifyMediaBean.getMedia_writer_name());
 		modifyMediaBean.setMedia_writer_idx(tempModifyMediaBean.getMedia_writer_idx());
+		
+	}
+	
+	public void modifyMediaInfo(MediaBean modifyMediaBean) {
+		
+		MultipartFile media_fileMF = modifyMediaBean.getMedia_fileMF();
+		
+		if(media_fileMF.getSize() > 0) {
+			
+			String file_name1 = getMediaName(media_fileMF);
+			modifyMediaBean.setMedia_file(file_name1);
+			modifyMediaBean.setFilesize(media_fileMF.getSize());
+			
+		}
+		
+		if(modifyMediaBean.getMedia_posterMF().getSize() > 0) {
+			
+			String file_name2 = getImageName(modifyMediaBean.getMedia_posterMF());
+			modifyMediaBean.setMedia_poster(file_name2);
+			
+		}
+		
+		mediaDao.modifyMediaInfo(modifyMediaBean);
 		
 	}
 	

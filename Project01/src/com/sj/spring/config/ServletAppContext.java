@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import com.sj.spring.beans.UserBean;
 import com.sj.spring.interceptor.CheckUserLoginInterceptor;
@@ -150,8 +151,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 		
 		CheckUserLoginInterceptor checkUserLoginInterceptor = new CheckUserLoginInterceptor(loginUserBean);
 		InterceptorRegistration reg2 = registry.addInterceptor(checkUserLoginInterceptor);
-		reg2.addPathPatterns("/board/*", "/user/logout", "/user/modify");
-		reg2.excludePathPatterns("/board/main");
+		reg2.addPathPatterns("/board/*", "/user/logout", "/user/modify", "/media/*");
+		reg2.excludePathPatterns("/board/main", "/media/main");
 		
 		CheckWriterInterceptor checkWriterInterceptor = new CheckWriterInterceptor(loginUserBean, boardService);
 		InterceptorRegistration reg3 = registry.addInterceptor(checkWriterInterceptor);

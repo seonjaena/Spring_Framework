@@ -35,4 +35,8 @@ public class MediaDao {
 		mediaMapper.deleteMediaInfo(media_idx);
 	}
 	
+	public void modifyMediaInfo(MediaBean modifyMediaBean) {
+		mediaMapper.modifyMediaInfo(modifyMediaBean);
+	}
+	
 }
