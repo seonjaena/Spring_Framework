@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -141,6 +142,10 @@ public class BoardService {
 		int contentCnt = boardDao.getContentCnt(board_info_idx);
 		PageBean pageBean = new PageBean(contentCnt, page, page_contentCnt, page_buttonCnt);
 		return pageBean;
+	}
+	
+	public void addViews(@Param("views")int views, @Param("content_idx")int content_idx) {
+		boardDao.addViews(views, content_idx);
 	}
 	
 }

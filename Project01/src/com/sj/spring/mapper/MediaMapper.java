@@ -3,6 +3,7 @@ package com.sj.spring.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
@@ -29,7 +30,7 @@ public interface MediaMapper {
 	void addMediaInfo(MediaBean writeMediaBean);
 	
 	@Select("SELECT a1.MEDIA_IDX, a1.MEDIA_SUBJECT, a1.MEDIA_POSTER, a1.MEDIA_FILE, a1.FILESIZE, " + 
-			"TO_CHAR(a1.MEDIA_DATE, 'YYYY-MM-DD') AS MEDIA_DATE, a1.MEDIA_WRITER_IDX, " + 
+			"TO_CHAR(a1.MEDIA_DATE, 'YYYY-MM-DD') AS MEDIA_DATE, a1.MEDIA_WRITER_IDX, a1.VIEWS, " + 
 			"a2.USER_NAME AS MEDIA_WRITER_NAME " + 
 			"FROM MEDIA_TABLE a1, USER_TABLE a2 " + 
 			"WHERE a1.MEDIA_WRITER_IDX = a2.USER_IDX " + 
@@ -48,5 +49,10 @@ public interface MediaMapper {
 			"SET MEDIA_SUBJECT = #{media_subject}, MEDIA_POSTER = #{media_poster, jdbcType = VARCHAR}, MEDIA_FILE = #{media_file, jdbcType = VARCHAR} " + 
 			"WHERE MEDIA_IDX = #{media_idx}")
 	void modifyMediaInfo(MediaBean modifyMediaBean);
+	
+	@Update("UPDATE MEDIA_TABLE " + 
+			"SET VIEWS = #{views} " + 
+			"WHERE MEDIA_IDX = #{media_idx}")
+	void addViews(@Param("views")int views, @Param("media_idx")int media_idx);
 	
 }

@@ -89,6 +89,10 @@ public class MediaController {
 					   HttpServletRequest request) {
 		
 		MediaBean readMediaBean = mediaService.getMediaInfo(media_idx);
+		
+		if(loginUserBean.getUser_idx() != readMediaBean.getMedia_writer_idx()) {
+			mediaService.addViews(readMediaBean.getViews() + 1, media_idx);
+		}
 
 		request.setAttribute("media_info_idx", media_info_idx);
 		request.setAttribute("media_idx", media_idx);

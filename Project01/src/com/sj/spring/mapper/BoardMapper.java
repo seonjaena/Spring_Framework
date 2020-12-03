@@ -73,4 +73,9 @@ public interface BoardMapper {
 	@Select("SELECT COUNT(*) FROM CONTENT_TABLE WHERE CONTENT_BOARD_IDX = #{board_info_idx}")
 	int getContentCnt(int board_info_idx);
 	
+	@Update("UPDATE CONTENT_TABLE " + 
+			"SET VIEWS = #{views} " + 
+			"WHERE CONTENT_IDX = #{content_idx}")
+	void addViews(@Param("views")int views, @Param("content_idx")int content_idx);
+	
 }

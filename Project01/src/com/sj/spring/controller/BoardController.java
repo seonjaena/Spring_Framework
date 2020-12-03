@@ -56,6 +56,11 @@ public class BoardController {
 					   Model model) {
 		
 		ContentBean readContentBean = boardService.getContentInfo(content_idx);
+		
+		if(loginUserBean.getUser_idx() != readContentBean.getContent_writer_idx()) {
+			boardService.addViews(readContentBean.getViews() + 1, content_idx);
+		}
+		
 		List<String> file_list = boardService.getContentFile(content_idx);
 		
 		model.addAttribute("board_info_idx", board_info_idx);

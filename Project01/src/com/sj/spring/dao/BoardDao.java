@@ -56,4 +56,8 @@ public class BoardDao {
 		return boardMapper.getContentCnt(board_info_idx);
 	}
 	
+	public void addViews(@Param("views")int views, @Param("content_idx")int content_idx) {
+		boardMapper.addViews(views, content_idx);
+	}
+	
 }

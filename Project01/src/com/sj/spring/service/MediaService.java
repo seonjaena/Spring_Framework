@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -154,6 +155,10 @@ public class MediaService {
 		
 		mediaDao.modifyMediaInfo(modifyMediaBean);
 		
+	}
+	
+	public void addViews(@Param("views")int views, @Param("media_idx")int media_idx) {
+		mediaDao.addViews(views, media_idx);
 	}
 	
 }

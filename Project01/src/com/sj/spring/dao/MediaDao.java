@@ -2,6 +2,7 @@ package com.sj.spring.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +38,10 @@ public class MediaDao {
 	
 	public void modifyMediaInfo(MediaBean modifyMediaBean) {
 		mediaMapper.modifyMediaInfo(modifyMediaBean);
+	}
+	
+	public void addViews(@Param("views")int views, @Param("media_idx")int media_idx) {
+		mediaMapper.addViews(views, media_idx);
 	}
 	
 }
