@@ -35,6 +35,16 @@
 		</div>
 	</div>
 	
+	<div>
+		<div style = "text-align:center">
+			<div id = "naver_id_login">
+				<a href="${url}">
+					<img width="223" src = "https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" />
+				</a>
+			</div>
+		</div>
+	</div>
+	
 	<c:import url = "/WEB-INF/views/include/bottom.jsp" />
 </body>
 </html>

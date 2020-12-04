@@ -21,8 +21,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import com.sj.spring.beans.NaverLoginBean;
 import com.sj.spring.beans.UserBean;
 import com.sj.spring.interceptor.CheckUserLoginInterceptor;
 import com.sj.spring.interceptor.CheckWriterInterceptor;
@@ -175,6 +175,11 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Bean
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
+	}
+	
+	@Bean(name = "naverLoginBean")
+	public NaverLoginBean naverLoginBean() {
+		return new NaverLoginBean();
 	}
 	
 }
