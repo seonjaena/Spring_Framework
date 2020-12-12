@@ -25,10 +25,12 @@ public class UserBean {
 	
 	private boolean userIdExist;
 	private boolean userLogin;
+	private boolean userSocial;
 	
 	public UserBean() {
 		this.userIdExist = false;
 		this.userLogin = false;
+		this.userSocial = false;
 	}
 	
 	public int getUser_idx() {
@@ -72,6 +74,12 @@ public class UserBean {
 	}
 	public void setUserLogin(boolean userLogin) {
 		this.userLogin = userLogin;
+	}
+	public boolean isUserSocial() {
+		return userSocial;
+	}
+	public void setUserSocial(boolean userSocial) {
+		this.userSocial = userSocial;
 	}
 	
 }

@@ -24,6 +24,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.sj.spring.beans.NaverLoginBean;
 import com.sj.spring.beans.UserBean;
+import com.sj.spring.interceptor.AlreadyLoginInterceptor;
+import com.sj.spring.interceptor.BlockSocialUserInterceptor;
+import com.sj.spring.interceptor.CheckUploaderrInterceptor;
 import com.sj.spring.interceptor.CheckUserLoginInterceptor;
 import com.sj.spring.interceptor.CheckWriterInterceptor;
 import com.sj.spring.interceptor.TopMenuInterceptor;
@@ -33,6 +36,7 @@ import com.sj.spring.mapper.MediaMapper;
 import com.sj.spring.mapper.TopMenuMapper;
 import com.sj.spring.mapper.UserMapper;
 import com.sj.spring.service.BoardService;
+import com.sj.spring.service.MediaService;
 import com.sj.spring.service.TopMenuService;
 
 // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -63,6 +67,9 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private MediaService mediaService;
 	
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
@@ -157,6 +164,18 @@ public class ServletAppContext implements WebMvcConfigurer{
 		CheckWriterInterceptor checkWriterInterceptor = new CheckWriterInterceptor(loginUserBean, boardService);
 		InterceptorRegistration reg3 = registry.addInterceptor(checkWriterInterceptor);
 		reg3.addPathPatterns("/board/delete", "/board/modify");
+		
+		BlockSocialUserInterceptor blockSocialUserInterceptor = new BlockSocialUserInterceptor(loginUserBean);
+		InterceptorRegistration reg4 = registry.addInterceptor(blockSocialUserInterceptor);
+		reg4.addPathPatterns("/board/write", "/board/delete", "/board/modify", "/media/upload", "/media/delete", "/media/modify", "/user/modify");
+		
+		AlreadyLoginInterceptor alreadyLoginInterceptor = new AlreadyLoginInterceptor(loginUserBean);
+		InterceptorRegistration reg5 = registry.addInterceptor(alreadyLoginInterceptor);
+		reg5.addPathPatterns("/user/login", "/user/join");
+		
+		CheckUploaderrInterceptor checkUploaderInterceptor = new CheckUploaderrInterceptor(loginUserBean, mediaService);
+		InterceptorRegistration reg6 = registry.addInterceptor(checkUploaderInterceptor);
+		reg6.addPathPatterns("/media/delete", "/media/modify");
 		
 	}
 	

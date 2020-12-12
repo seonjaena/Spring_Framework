@@ -81,7 +81,13 @@
 		</ul>
 	</div>
 	
-	<a href = "${root }board/write?board_info_idx=${requestScope.board_info_idx }" class = "btn btn-primary">글쓰기</a>
+	<c:if test = "${requestScope.loginUserBean.userSocial == false }">
+		<a href = "${root }board/write?board_info_idx=${requestScope.board_info_idx }" class = "btn btn-primary">글쓰기</a>
+	</c:if>
+	<c:if test = "${requestScope.loginUserBean.userSocial == true }">
+		<p style = "color:red">소셜 로그인 유저는 사용 불가능합니다.</p>
+		<button type = "button" class = "btn btn-danger" disabled = "disabled">글쓰기</button>
+	</c:if>
 
 	<c:import url = "/WEB-INF/views/include/bottom.jsp" />
 

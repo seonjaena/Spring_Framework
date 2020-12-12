@@ -41,6 +41,7 @@ public class BoardController {
 		List<ContentBean> contentList = boardService.getContentList(board_info_idx, page);
 		
 		model.addAttribute("contentList", contentList);
+		model.addAttribute("loginUserBean", loginUserBean);
 		
 		PageBean pageBean = boardService.getContentCnt(board_info_idx, page);
 		model.addAttribute("pageBean", pageBean);

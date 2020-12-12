@@ -44,6 +44,7 @@ public class MediaController {
 		request.setAttribute("mediaList", mediaList);
 		request.setAttribute("media_info_idx", media_info_idx);
 		request.setAttribute("page", page);
+		request.setAttribute("loginUserBean", loginUserBean);
 		
 		PageBean pageBean = mediaService.getMediaCnt(page, media_info_idx);
 		request.setAttribute("pageBean", pageBean);
@@ -159,6 +160,11 @@ public class MediaController {
 	@GetMapping("/not_writer")
 	public String not_writer() {
 		return "media/not_writer";
+	}
+	
+	@GetMapping("/not_uploader")
+	public String not_uploader() {
+		return "/media/not_uploader";
 	}
 	
 	@InitBinder

@@ -98,10 +98,9 @@ public class UserController {
 		JSONObject jsonObj = (JSONObject) obj;
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
 		String name = (String)response_obj.get("name");
-		int idx = Integer.parseInt((String)response_obj.get("id")) * -1 - 2;
 		loginUserBean.setUserLogin(true);
 		loginUserBean.setUser_name(name);
-		loginUserBean.setUser_idx(idx);
+		loginUserBean.setUserSocial(true);
 		return "main";
 	}
 	
@@ -160,6 +159,16 @@ public class UserController {
 	@GetMapping("/not_login")
 	public String not_login() {
 		return "user/not_login";
+	}
+	
+	@GetMapping("/already_login")
+	public String already_login() {
+		return "user/already_login";
+	}
+	
+	@GetMapping("/social_id")
+	public String social_id() {
+		return "user/social_id";
 	}
 	
 	@InitBinder
