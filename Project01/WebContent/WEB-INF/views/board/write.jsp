@@ -12,6 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src = "/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 
@@ -24,6 +25,16 @@
 		<form:errors path = "content_subject" style = "color:red" /><br/>
 		<form:label path = "content_text">내용</form:label><br/>
 		<form:textarea path = "content_text" rows = "10" style = "resize:none" /><br/>
+		<script>
+			var ckeditor_config = {
+					resize_enaleb : false,
+					enterMode : CKEDITOR.ENTER_BR,
+					shiftEnterMode : CKEDITOR.ENTER_P,
+					filebrowserUploadUrl : "/admin/goods/ckUpload"
+			};
+			
+			CKEDITOR.replace("content_text", ckeditor_config);
+		</script>
 		<form:errors path = "content_text" style = "color:red" /><br/>
 		<form:label path = "upload_file">첨부 이미지</form:label><br/>
 		<form:input multiple = "multiple" type = "file" path = "upload_file" accept = "image/*" /><br/><br/>
